@@ -1,0 +1,13 @@
+{
+  "name":"skolLine",
+  "description":"Full stack node web application for the Minnesota Vikings Skol Line",
+  "author":{
+    "name":"Matt Richards",
+    "email":"mrmattrichards@gmail.com"
+  },
+  "license": "MIT",
+  "main":"app.js",
+  "dependencies": {
+    "express":"4.13.0"
+  }
+}

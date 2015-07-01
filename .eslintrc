@@ -1,0 +1,11 @@
+{
+  "rules" : {
+    "quotes" : [0],
+    "no-unused-vars": [1],
+    "eol-last": [0]
+  },
+  "env":{
+    "browser": true,
+    "node": true
+  }
+}
