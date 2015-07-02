@@ -20,7 +20,7 @@ var router = new express.Router();
 router.use(function(req, res, next){
     'use strict';
 
-    console.log('EndPoint hit');
+    console.log(req.method + ' ' + req.url);
     next();
 });
 
