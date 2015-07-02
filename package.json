@@ -1,19 +1,23 @@
 {
-  "name":"skolLine",
-  "description":"Full stack node web application for the Minnesota Vikings Skol Line",
-  "author":{
-    "name":"Matt Richards",
-    "email":"mrmattrichards@gmail.com"
+  "name": "skolLine",
+  "description": "Full stack node web application for the Minnesota Vikings Skol Line",
+  "author": {
+    "name": "Matt Richards",
+    "email": "mrmattrichards@gmail.com"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cepster/skolLineNode.git"
   },
-  "main":"app.js",
+  "main": "app.js",
   "dependencies": {
-    "express":"~4.13.0",
-    "mongoose":"~3.6.13",
-    "body-parser":"~1.0.1"
+    "body-parser": "~1.0.1",
+    "express": "~4.13.0",
+    "express-session": "^1.11.3",
+    "mongoose": "~3.6.13",
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0",
+    "bcrypt-nodejs" : "*"
   }
 }
