@@ -18,7 +18,8 @@ var initPassport = require('./app/passport/initPassport');
 initPassport(passport);
 
 //database
-mongoose.connect('mongodb://localhost:27017/skolLine');
+var dbUrl = process.env.DB || 'mongodb://skol:vikings@ds053312.mongolab.com:53312/skolline';
+mongoose.connect(dbUrl);
 
 //routes
 var router = new express.Router();
@@ -35,11 +36,10 @@ router.get('/', function(req, res){
   res.render('index', { message: ''});
 });
 
-router.route('/login')
-  .post(passport.authenticate('login', {
-    successRedirect: '/home.html',
-    failureRedirect: '/'
-  }));
+router.get('/login', passport.authenticate('login', {
+  successRedirect: '/home.html',
+  failureRedirect: '/'
+}));
 
 var initRoutes = require('./app/routes/routes');
 initRoutes(router);
