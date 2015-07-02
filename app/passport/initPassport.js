@@ -64,7 +64,7 @@ module.exports = function(passport){
         }
       );
   }));
-/*
+
   passport.use('signup', new LocalStrategy({
     passReqToCallback: true
   },
@@ -111,5 +111,5 @@ module.exports = function(passport){
     process.nextTick(findOrCreateUser);
   })
 );
-*/
+
 };
