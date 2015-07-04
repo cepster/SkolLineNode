@@ -1,0 +1,4 @@
+export class Music {
+  constructor(){
+  }
+}
