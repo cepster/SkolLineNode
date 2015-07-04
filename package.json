@@ -18,6 +18,22 @@
     "mongoose": "~3.6.13",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
-    "bcrypt-nodejs" : "*"
+    "bcrypt-nodejs": "*"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "public"
+    },
+    "dependencies": {
+      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0",
+      "aurelia-framework": "github:aurelia/framework@^0.13.0",
+      "aurelia-http-client": "github:aurelia/http-client@^0.10.0",
+      "bootstrap": "github:twbs/bootstrap@^3.3.5"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
   }
 }
