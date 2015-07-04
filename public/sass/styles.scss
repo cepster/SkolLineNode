@@ -1,19 +1,22 @@
+$splashShadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+$splashFontSize: 5em;
+
 .splash {
     text-align: center;
     margin: 10% 0 0 0;
 
     .message {
-      font-size: 5em;
+      font-size: $splashFontSize;
       line-height: 1.5em;
-      -webkit-text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
-      text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+      -webkit-text-shadow: $splashShadow;
+      text-shadow: $splashShadow;
       text-transform: uppercase;
     }
 
     .fa-spinner {
       text-align: center;
       display: inline-block;
-      font-size: 5em;
+      font-size: $splashFontSize;
       margin-top: 50px;
     }
 }
