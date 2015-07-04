@@ -18,7 +18,7 @@ gulp.task('sass', function(){
   .pipe(gulp.dest('public/styles'));
 });
 
-gulp.task('sass:watch', function () {
+gulp.task('sass:watch', ['sass'], function () {
   'use strict';
 
   gulp.watch('public/sass/*.scss', ['sass']);
