@@ -20,7 +20,7 @@ module.exports = function(passport){
   testUser.password = 'password';
 
   var isValidPassword = function(user, password){
-    if(user === testUser.username){
+    if(user.username === testUser.username){
       return password === testUser.password;
     }
     return bCrypt.compareSync(password, user.password);
@@ -43,7 +43,7 @@ module.exports = function(passport){
             return done(err);
           }
 
-          if(!user && user === testUser.username){
+          if(!user && username === testUser.username){
             console.log('Found test user');
             user = testUser;
           }

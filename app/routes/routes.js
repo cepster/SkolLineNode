@@ -1,11 +1,21 @@
 var Music = require('../models/music');
 var Member = require('../models/member');
 
+function ensureAuthenticated(req, res, next) {
+  'use strict';
+  if (req.isAuthenticated() || true) {
+    console.log('User is authenticated');
+    return next();
+  }
+  console.log('User is not authenticated');
+  res.redirect('/');
+}
+
 module.exports = function(router){
   'use strict';
 
   router.route('/music')
-    .get(function(req, res){
+    .get(ensureAuthenticated, function(req, res){
         Music.find(function(err, music){
           if(err){
             res.send(err);
