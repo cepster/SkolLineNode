@@ -4,6 +4,7 @@ export class Members{
   constructor(){
     this.http = new HttpClient();
     this.members = [];
+    this.selectedMember = undefined;
   }
 
   activate(){
@@ -11,5 +12,12 @@ export class Members{
                      .then(response => {
                        this.members = response.content;
                      });
+  }
+
+  loadDetail(id){
+    this.http.get('/api/member/' + id)
+      .then(response =>{
+          this.selectedMember = response.content;
+      });
   }
 }
