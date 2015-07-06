@@ -1,5 +1,16 @@
 <template>
-  <div>
-    This is the music
+  <div class="container">
+    <div class="col-md-3">
+      <div class="well">
+      <ul class="nav">
+        <li repeat.for="tune of music"><a click.delegate="$parent.loadDetail(tune._id)">${tune.name}</a></li>
+      </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="well">
+        This is the music detail for: ${selectedMusic.name}
+      </div>
+    </div>
   </div>
 </template>
