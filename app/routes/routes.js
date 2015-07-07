@@ -3,18 +3,20 @@ var Member = require('../models/member');
 
 function ensureAuthenticated(req, res, next) {
   'use strict';
-  if (req.isAuthenticated() || true) {
-    console.log('User is authenticated');
-    return next();
-  }
-  console.log('User is not authenticated');
-  res.redirect('/');
+  // if (req.isAuthenticated()) {
+  //   console.log('User is authenticated');
+  //   return next();
+  // }
+  // console.log('User is not authenticated');
+  // res.redirect('/');
+
+  return next();
 }
 
 module.exports = function(router){
   'use strict';
 
-  router.route('/music')
+  router.route('/api/music')
     .get(ensureAuthenticated, function(req, res){
         Music.find(function(err, music){
           if(err){
@@ -24,7 +26,7 @@ module.exports = function(router){
           res.json(music);
         });
     })
-    .post(function(req, res){
+    .post(ensureAuthenticated, function(req, res){
         var music = new Music();
         music.name = req.body.name;
 
@@ -38,8 +40,8 @@ module.exports = function(router){
         });
     });
 
-  router.route('/music/:music_id')
-      .get(function(req, res){
+  router.route('/api/music/:music_id')
+      .get(ensureAuthenticated, function(req, res){
         Music.findById(req.params.music_id, function(err, music){
             if(err){
               res.send(err);
@@ -49,7 +51,7 @@ module.exports = function(router){
             }
         });
       })
-      .put(function(req, res){
+      .put(ensureAuthenticated, function(req, res){
         Music.findById(req.params.music_id, function(err, music){
             if(err){
               res.send(err);
@@ -67,7 +69,7 @@ module.exports = function(router){
             }
         });
       })
-      .delete(function(req, res){
+      .delete(ensureAuthenticated, function(req, res){
         Music.remove({
           _id: req.params.music_id
         }, function(err){
@@ -80,8 +82,8 @@ module.exports = function(router){
         });
       });
 
-  router.route('/member')
-        .get(function(req, res){
+  router.route('/api/member')
+        .get(ensureAuthenticated, function(req, res){
           Member.find(function(err, members){
             if(err){
               res.send(err);
@@ -91,7 +93,7 @@ module.exports = function(router){
             }
           });
         })
-        .post(function(req, res){
+        .post(ensureAuthenticated, function(req, res){
           var member = new Member();
           member.name = req.body.name;
           member.instrument = req.body.instrument;
@@ -109,8 +111,8 @@ module.exports = function(router){
         });
 
 
-  router.route('/member/:member_id')
-        .get(function(req, res){
+  router.route('/api/member/:member_id')
+        .get(ensureAuthenticated, function(req, res){
           Member.findById(req.params.member_id, function(err, member){
               if(err){
                 res.send(err);
@@ -120,7 +122,7 @@ module.exports = function(router){
               }
           });
         })
-        .put(function(req, res){
+        .put(ensureAuthenticated, function(req, res){
           Member.findById(req.params.member_id, function(err, member){
               if(err){
                 res.send(err);
@@ -141,7 +143,7 @@ module.exports = function(router){
               }
           });
         })
-        .delete(function(req, res){
+        .delete(ensureAuthenticated, function(req, res){
           Member.remove({
             _id: req.params.member_id
           }, function(err){
