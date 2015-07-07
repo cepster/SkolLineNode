@@ -1,17 +1,6 @@
 var Music = require('../models/music');
 var Member = require('../models/member');
-
-function ensureAuthenticated(req, res, next) {
-  'use strict';
-  // if (req.isAuthenticated()) {
-  //   console.log('User is authenticated');
-  //   return next();
-  // }
-  // console.log('User is not authenticated');
-  // res.redirect('/');
-
-  return next();
-}
+var ensureAuthenticated = require('../passport/authenticator');
 
 module.exports = function(router){
   'use strict';
@@ -155,5 +144,4 @@ module.exports = function(router){
             }
           });
         });
-
 };
