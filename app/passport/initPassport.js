@@ -15,20 +15,40 @@ module.exports = function(passport){
     });
   });
 
+  // Generates hash using bCrypt
+  var createHash = function(password){
+   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+  };
+
+  //Create testUser if it doesn't exist
   var testUser = new User();
   testUser.username = 'admin';
   testUser.password = 'password';
 
-  var isValidPassword = function(user, password){
-    if(user === testUser.username){
-      return password === testUser.password;
-    }
-    return bCrypt.compareSync(password, user.password);
+  var initTestUser = function(){
+    User.findOne({ 'username': testUser.username}, function(err, user){
+        if(err){
+          console.log('Error occurred while attempting to determine existence of test user');
+        }
+
+        if(user){
+          console.log('Test user already found in DB');
+        }
+        else{
+          testUser.password = createHash(testUser.password);
+          testUser.save(function(saveErr){
+              if(saveErr){
+                console.log('Unable to save test user');
+              }
+          });
+        }
+    });
   };
 
-  // Generates hash using bCrypt
-  var createHash = function(password){
-   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+  initTestUser();
+
+  var isValidPassword = function(user, password){
+    return bCrypt.compareSync(password, user.password);
   };
 
   passport.use('login', new LocalStrategy({
@@ -43,11 +63,6 @@ module.exports = function(passport){
             return done(err);
           }
 
-          if(!user && user === testUser.username){
-            console.log('Found test user');
-            user = testUser;
-          }
-
           // Username does not exist, log error & redirect back
           if (!user){
             console.log('User Not Found with username ' + username);
@@ -60,6 +75,7 @@ module.exports = function(passport){
           }
           // User and password both match, return user from
           // done method which will be treated like success
+          console.log('Login Success!!!');
           return done(null, user);
         }
       );

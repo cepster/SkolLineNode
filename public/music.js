@@ -8,9 +8,8 @@ export class Music {
   }
 
   activate(params){
-
     return this.http.get("/api/music")
-             .then(response =>{
+             .then(response => {
                 this.music = response.content;
              });
   }

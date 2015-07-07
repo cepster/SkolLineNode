@@ -3,6 +3,8 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var path = require('path');
+var ensureAuthenticated = require('./app/passport/authenticator');
 
 var app = express();
 app.use(expressSession({secret: 'my secret'}));
@@ -24,28 +26,27 @@ mongoose.connect(dbUrl);
 //routes
 var router = new express.Router();
 
-router.use(function(req, res, next){
-    'use strict';
-
-    console.log(req.method + ' ' + req.url);
-    next();
-});
-
 router.get('/', function(req, res){
   'use strict';
   res.render('index', { message: ''});
 });
 
-router.get('/login', passport.authenticate('login', {
-  successRedirect: '/home.html',
+router.get('/home', ensureAuthenticated, function(req, res){
+  'use strict';
+  res.sendFile(path.join(__dirname, '/public/home.html'));
+});
+
+router.post('/login', passport.authenticate('login', {
+  successRedirect: '/home',
   failureRedirect: '/'
 }));
 
 var initRoutes = require('./app/routes/routes');
 initRoutes(router);
 
-app.use('/api', router);
-app.use(express.static('public'));
+app.set("view options", {layout: false});
+
+app.use('/', router);
 
 app.listen(port);
 console.log('Web server is running on port ' + port);
