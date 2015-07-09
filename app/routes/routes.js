@@ -1,5 +1,6 @@
 var Music = require('../models/music');
 var Member = require('../models/member');
+var Gig = require('../models/gig');
 var ensureAuthenticated = require('../passport/authenticator');
 
 module.exports = function(router){
@@ -141,6 +142,81 @@ module.exports = function(router){
             }
             else{
               res.json({message: "Member has been deleted"});
+            }
+          });
+        });
+
+  router.route('/api/gig')
+        .get(ensureAuthenticated, function(req, res){
+            Gig.find(function(err, gig){
+              if(err){
+                res.send(err);
+              }
+
+              res.json(gig);
+            });
+        })
+        .post(ensureAuthenticated, function(req, res){
+            var gig = new Gig();
+            gig.name = req.body.name;
+            gig.date = req.body.date;
+            gig.startTime = req.body.startTime;
+            gig.endTime = req.body.endTime;
+            gig.note = req.body.note;
+
+            gig.save(function(err){
+              if(err){
+                  res.send(err);
+              }
+              else{
+                  res.json({ message: 'Gig Created!'});
+              }
+            });
+        });
+
+  router.route('/api/gig/:gig_id')
+        .get(ensureAuthenticated, function(req, res){
+          Gig.findById(req.params.gig_id, function(err, gig){
+              if(err){
+                res.send(err);
+              }
+              else{
+                res.json(gig);
+              }
+          });
+        })
+        .put(ensureAuthenticated, function(req, res){
+          Gig.findById(req.params.gig, function(err, gig){
+              if(err){
+                res.send(err);
+              }
+              else{
+                gig.name = req.body.name;
+                gig.date = req.body.date;
+                gig.startTime = req.body.startTime;
+                gig.endTime = req.body.endTime;
+                gig.note = req.body.note;
+
+                gig.save(function(err2){
+                    if(err2){
+                      res.send(err2);
+                    }
+                    else{
+                      res.json({message: "Gig Updated!"});
+                    }
+                });
+              }
+          });
+        })
+        .delete(ensureAuthenticated, function(req, res){
+          Gig.remove({
+            _id: req.params.gig_id
+          }, function(err){
+            if(err){
+              res.send(err);
+            }
+            else{
+              res.json({message: "Gig has been deleted"});
             }
           });
         });

@@ -24,3 +24,15 @@ $splashFontSize: 5em;
 a {
   cursor:pointer;
 }
+
+.sk-body {
+  div {
+    margin-bottom:10px;
+  }
+}
+
+.sk-list {
+  a {
+    display: list-item;
+  }
+}
