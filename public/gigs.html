@@ -1,0 +1,17 @@
+<template>
+  <div class="container">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">My Gigs</h3>
+      </div>
+    </div>
+    <div class="panel-body sk-body">
+      <div class="control-group sk-list">
+        <a repeat.for="gig of gigs" route-href="route: gigDetail; params.bind: {gigID: gig._id}">${gig.name}</a>
+      </div>
+      <div class="control-group">
+        <button click.delegate="newGig()">New Gig</button>
+      </div>
+    </div>
+  </div>
+</template>

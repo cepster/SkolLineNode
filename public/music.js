@@ -1,8 +1,11 @@
+import {inject} from "aurelia-framework";
 import {HttpClient} from "aurelia-http-client";
 
+@inject(HttpClient)
 export class Music {
-  constructor(){
-    this.http = new HttpClient();
+
+  constructor(http){
+    this.http = http;
     this.music = [];
     this.selectedMusic = undefined;
   }

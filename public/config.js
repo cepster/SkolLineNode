@@ -3,7 +3,8 @@ System.config({
   "transpiler": "babel",
   "babelOptions": {
     "optional": [
-      "runtime"
+      "runtime",
+      "es7.decorators"
     ]
   },
   "paths": {
@@ -141,4 +142,3 @@ System.config({
     }
   }
 });
-
