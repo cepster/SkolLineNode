@@ -4,7 +4,7 @@ var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require('path');
-var ensureAuthenticated = require('./app/passport/authenticator');
+var auth = require('./app/passport/authenticator');
 
 var app = express();
 app.use(expressSession({secret: 'my secret'}));
@@ -31,7 +31,7 @@ router.get('/', function(req, res){
   res.render('index', { message: ''});
 });
 
-router.get('/home', ensureAuthenticated, function(req, res){
+router.get('/home', auth.ensureAuthenticated, function(req, res){
   'use strict';
   res.sendFile(path.join(__dirname, '/public/home.html'));
 });
@@ -40,6 +40,13 @@ router.post('/login', passport.authenticate('login', {
   successRedirect: '/home',
   failureRedirect: '/'
 }));
+
+router.get('/logout', auth.ensureAuthenticated, function(req, res){
+  'use strict';
+
+  req.logout();
+  res.redirect('/');
+});
 
 var initRoutes = require('./app/routes/routes');
 initRoutes(router);

@@ -1,13 +1,13 @@
 var Music = require('../models/music');
-var Member = require('../models/member');
+var User = require('../models/user');
 var Gig = require('../models/gig');
-var ensureAuthenticated = require('../passport/authenticator');
+var auth = require('../passport/authenticator');
 
 module.exports = function(router){
   'use strict';
 
   router.route('/api/music')
-    .get(ensureAuthenticated, function(req, res){
+    .get(auth.ensureAuthenticated, function(req, res){
         Music.find(function(err, music){
           if(err){
             res.send(err);
@@ -16,7 +16,7 @@ module.exports = function(router){
           res.json(music);
         });
     })
-    .post(ensureAuthenticated, function(req, res){
+    .post(auth.ensureAuthenticated, function(req, res){
         var music = new Music();
         music.name = req.body.name;
 
@@ -31,7 +31,7 @@ module.exports = function(router){
     });
 
   router.route('/api/music/:music_id')
-      .get(ensureAuthenticated, function(req, res){
+      .get(auth.ensureAuthenticated, function(req, res){
         Music.findById(req.params.music_id, function(err, music){
             if(err){
               res.send(err);
@@ -41,7 +41,7 @@ module.exports = function(router){
             }
         });
       })
-      .put(ensureAuthenticated, function(req, res){
+      .put(auth.ensureAuthenticated, function(req, res){
         Music.findById(req.params.music_id, function(err, music){
             if(err){
               res.send(err);
@@ -59,7 +59,7 @@ module.exports = function(router){
             }
         });
       })
-      .delete(ensureAuthenticated, function(req, res){
+      .delete(auth.ensureAuthenticated, function(req, res){
         Music.remove({
           _id: req.params.music_id
         }, function(err){
@@ -73,8 +73,8 @@ module.exports = function(router){
       });
 
   router.route('/api/member')
-        .get(ensureAuthenticated, function(req, res){
-          Member.find(function(err, members){
+        .get(auth.ensureAuthenticated, function(req, res){
+          User.find({member: true}, function(err, members){
             if(err){
               res.send(err);
             }
@@ -83,8 +83,8 @@ module.exports = function(router){
             }
           });
         })
-        .post(ensureAuthenticated, function(req, res){
-          var member = new Member();
+        .post(auth.ensureAdmin, function(req, res){
+          var member = new User();
           member.name = req.body.name;
           member.instrument = req.body.instrument;
           member.phoneNumber = req.body.phoneNumber;
@@ -102,8 +102,8 @@ module.exports = function(router){
 
 
   router.route('/api/member/:member_id')
-        .get(ensureAuthenticated, function(req, res){
-          Member.findById(req.params.member_id, function(err, member){
+        .get(auth.ensureAuthenticated, function(req, res){
+          User.findById(req.params.member_id, function(err, member){
               if(err){
                 res.send(err);
               }
@@ -112,8 +112,8 @@ module.exports = function(router){
               }
           });
         })
-        .put(ensureAuthenticated, function(req, res){
-          Member.findById(req.params.member_id, function(err, member){
+        .put(auth.ensureAdmin, function(req, res){
+          User.findById(req.params.member_id, function(err, member){
               if(err){
                 res.send(err);
               }
@@ -133,8 +133,8 @@ module.exports = function(router){
               }
           });
         })
-        .delete(ensureAuthenticated, function(req, res){
-          Member.remove({
+        .delete(auth.ensureAdmin, function(req, res){
+          User.remove({
             _id: req.params.member_id
           }, function(err){
             if(err){
@@ -147,7 +147,7 @@ module.exports = function(router){
         });
 
   router.route('/api/gig')
-        .get(ensureAuthenticated, function(req, res){
+        .get(auth.ensureAuthenticated, function(req, res){
             Gig.find(function(err, gig){
               if(err){
                 res.send(err);
@@ -156,7 +156,7 @@ module.exports = function(router){
               res.json(gig);
             });
         })
-        .post(ensureAuthenticated, function(req, res){
+        .post(auth.ensureAdmin, function(req, res){
             var gig = new Gig();
             gig.name = req.body.name;
             gig.date = req.body.date;
@@ -175,7 +175,7 @@ module.exports = function(router){
         });
 
   router.route('/api/gig/:gig_id')
-        .get(ensureAuthenticated, function(req, res){
+        .get(auth.ensureAuthenticated, function(req, res){
           Gig.findById(req.params.gig_id, function(err, gig){
               if(err){
                 res.send(err);
@@ -185,7 +185,7 @@ module.exports = function(router){
               }
           });
         })
-        .put(ensureAuthenticated, function(req, res){
+        .put(auth.ensureAuthenticated, function(req, res){
           Gig.findById(req.params.gig, function(err, gig){
               if(err){
                 res.send(err);
@@ -208,7 +208,7 @@ module.exports = function(router){
               }
           });
         })
-        .delete(ensureAuthenticated, function(req, res){
+        .delete(auth.ensureAuthenticated, function(req, res){
           Gig.remove({
             _id: req.params.gig_id
           }, function(err){

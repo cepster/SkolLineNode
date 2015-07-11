@@ -25,8 +25,26 @@ module.exports = function(passport){
   testUser.username = 'admin';
   testUser.password = 'password';
 
-  var initTestUser = function(){
-    User.findOne({ 'username': testUser.username}, function(err, user){
+  var testUser2 = new User();
+  testUser2.username = 'member';
+  testUser2.password = 'password';
+  testUser2.name = "Michael Neimeyer";
+  testUser2.email = "mrmattrichards@gmail.com";
+  testUser2.instrument = "Snare";
+  testUser2.phoneNumber = "(123)867-5309";
+  testUser2.member = true;
+  testUser2.admin = false;
+
+  var nonMember = new User();
+  nonMember.username = 'nonmember';
+  nonMember.password = 'password';
+  nonMember.name = 'sys admin';
+  nonMember.email = "mrmattrichards@gmail.com";
+  nonMember.member = false;
+  nonMember.admin = false;
+
+  var initTestUser = function(thisUser){
+    User.findOne({ 'username': thisUser.username}, function(err, user){
         if(err){
           console.log('Error occurred while attempting to determine existence of test user');
         }
@@ -35,17 +53,22 @@ module.exports = function(passport){
           console.log('Test user already found in DB');
         }
         else{
-          testUser.password = createHash(testUser.password);
-          testUser.save(function(saveErr){
+          thisUser.password = createHash(thisUser.password);
+          thisUser.save(function(saveErr){
               if(saveErr){
                 console.log('Unable to save test user');
+              }
+              else{
+                console.log('Saved new test user: ' + thisUser.username);
               }
           });
         }
     });
   };
 
-  initTestUser();
+  initTestUser(testUser);
+  initTestUser(testUser2);
+  initTestUser(nonMember);
 
   var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);

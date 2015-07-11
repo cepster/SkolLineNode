@@ -1,4 +1,6 @@
 <template>
+  <require from="./custom/datepicker"></require>
+
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Gig Detail</h3>
@@ -18,7 +20,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Date</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="date" class="form-control" value.bind="gig.date"/>
+              <!-- <input type="text" placeholder="date" class="form-control" value.bind="gig.date"/> -->
+              <input date-picker class="form-control" value.bind="gig.date"/>
             </div>
           </div>
 
