@@ -7,7 +7,7 @@ var GigSchema = new Schema({
   startTime: String,
   endTime: String,
   notes: String,
-  attendees: [{userID: String}]
+  attendees: [{userID: String, going: Boolean}]
 });
 
 module.exports = mongoose.model('Gig', GigSchema);

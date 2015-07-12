@@ -20,7 +20,7 @@ export class AuthState {
   }
 
   getUserID(){
-    return this.user.userID;
+    return this.user._id;
   }
 
   getUserName(){

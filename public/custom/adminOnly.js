@@ -9,7 +9,6 @@ export class AdminOnly {
   constructor(element, authState){
     this.element = element;
     this.authState = authState;
-    console.log('adminOnly is being instantiated properly');
   }
 
   attached(){
