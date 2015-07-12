@@ -146,6 +146,11 @@ module.exports = function(router){
           });
         });
 
+  router.route('/api/me')
+        .get(auth.ensureAuthenticated, function(req, res){
+            res.json(req.user);
+        });
+
   router.route('/api/gig')
         .get(auth.ensureAuthenticated, function(req, res){
             Gig.find(function(err, gig){

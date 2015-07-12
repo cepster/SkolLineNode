@@ -1,11 +1,13 @@
 import {inject} from "aurelia-framework";
 import {HttpClient} from "aurelia-http-client";
+import {AuthState} from "./service/authState";
 
-@inject(HttpClient)
+@inject(HttpClient, AuthState)
 export class GigDetail{
 
-  constructor(http){
+  constructor(http, authState){
     this.http = http;
+    this.authState = authState;
     this.gig = undefined;
   }
 
