@@ -15,7 +15,7 @@ export class Gigs{
     this.gigs = [];
   }
 
-  activate(params){
+  activate(){
     return this.http.get('/api/gig')
                     .then(response => {
                         this.setRSVPStatuses(response.content);
@@ -39,7 +39,7 @@ export class Gigs{
 
     var noResponseList = _.filter(allGigs, gig => {
         return _.find(gig.attendees, attendee => {
-              return attendee.userID = this.authState.getUserID();
+              return attendee.userID === this.authState.getUserID();
         }) === undefined;
     });
 

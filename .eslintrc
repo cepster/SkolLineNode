@@ -10,6 +10,8 @@
     "node": true
   },
   "ecmaFeatures":{
-    "modules": true
+    "modules": true,
+    "classes": true,
+    "arrowFunctions": true
   }
 }
