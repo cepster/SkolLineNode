@@ -24,6 +24,7 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "core-js": "npm:core-js@0.9.18",
     "jquery-ui": "github:components/jqueryui@1.11.4",
+    "underscore": "npm:underscore@1.8.3",
     "github:aurelia/binding@0.8.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.9.0",
       "aurelia-metadata": "github:aurelia/metadata@0.7.0",
