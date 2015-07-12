@@ -2,39 +2,42 @@
   <require from="./custom/adminOnly"></require>
 
   <div class="container">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">No Response</h3>
-      </div>
-    </div>
-    <div class="panel-body sk-body">
-      <div class="control-group sk-list">
-        <a repeat.for="gig of gigs.noResponse" route-href="route: gigDetail; params.bind: {gigID: gig._id}">${gig.name}</a>
-      </div>
-    </div>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Going</h3>
+    <div repeat.for="gigType of gigs">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">${gigType.title}</h3>
+        </div>
       </div>
-    </div>
-    <div class="panel-body sk-body">
-      <div class="control-group sk-list">
-        <a repeat.for="gig of gigs.attending" route-href="route: gigDetail; params.bind: {gigID: gig._id}">${gig.name}</a>
-      </div>
-    </div>
+      <div class="panel-body sk-body">
+        <div id="${gigType.title}Accordion" class="panel-group">
+          <div class="panel panel-default" repeat.for="thisGig of gigType.list">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#${gigType.title}Accordion" href="#collapse1_${thisGig._id}">${thisGig.date} - ${thisGig.name}</a>
+              </h4>
+            </div>
+            <div id="collapse1_${thisGig._id}" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>Date:</b> ${thisGig.date}<br/>
+                <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Not Going</h3>
-      </div>
-    </div>
-    <div class="panel-body sk-body">
-      <div class="control-group sk-list">
-        <a repeat.for="gig of gigs.notGoing" route-href="route: gigDetail; params.bind: {gigID: gig._id}">${gig.name}</a>
-      </div>
-    </div>
+                Please Respond:<br/>
+                <button><b>I can go!</b></button>
+                <button><b>I am unavailable</b></button>
 
+                <div admin-only>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div admin-only class="control-group">
       <button click.delegate="newGig()">New Gig</button>

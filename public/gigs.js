@@ -12,11 +12,7 @@ export class Gigs{
     this.router = router;
     this.authState = authState;
 
-    this.gigs = {
-      attending:[],
-      notGoing:[],
-      noResponse:[]
-    }
+    this.gigs = [];
   }
 
   activate(params){
@@ -27,28 +23,51 @@ export class Gigs{
   }
 
   setRSVPStatuses(allGigs){
-    this.gigs.attending = _.filter(allGigs, gig => {
+    var goingList = _.filter(allGigs, gig => {
         return _.find(gig.attendees, attendee => {
             return attendee.userID === this.authState.getUserID()
                    && attendee.going;
         });
     });
 
-    this.gigs.notGoing = _.filter(allGigs, gig => {
+    var notGoingList = _.filter(allGigs, gig => {
         return _.find(gig.attendees, attendee => {
             return attendee.userID === this.authState.getUserID()
                    && !attendee.going;
         });
     });
 
-    this.gigs.noResponse = _.filter(allGigs, gig => {
+    var noResponseList = _.filter(allGigs, gig => {
         return _.find(gig.attendees, attendee => {
               return attendee.userID = this.authState.getUserID();
-        }) === undefined
+        }) === undefined;
     });
+
+    this.gigs = [
+      {
+        title: 'No Response',
+        list: noResponseList
+      },
+      {
+        title: 'Going',
+        list: goingList
+      },
+      {
+        title: 'Not Going',
+        list: notGoingList
+      }
+    ];
   }
 
   newGig(){
     this.router.navigateToRoute('gigDetail', { gigID: 0 });
+  }
+
+  rsvpYes(){
+
+  }
+
+  rsvpNo(){
+
   }
 }
