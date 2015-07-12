@@ -24,4 +24,8 @@ export class App {
   activate(){
     this.authState.initialize();
   }
+
+  loggedInName(){
+    return this.authState.getUserName();
+  }
 }
