@@ -1,4 +1,6 @@
 <template>
+  <require from="./custom/adminOnly"></require>
+
   <div class="container">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -9,7 +11,7 @@
       <div class="control-group sk-list">
         <a repeat.for="gig of gigs" route-href="route: gigDetail; params.bind: {gigID: gig._id}">${gig.name}</a>
       </div>
-      <div class="control-group">
+      <div admin-only class="control-group">
         <button click.delegate="newGig()">New Gig</button>
       </div>
     </div>
