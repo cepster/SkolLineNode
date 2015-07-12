@@ -23,8 +23,8 @@
                 <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
 
                 Please Respond:<br/>
-                <button><b>I can go!</b></button>
-                <button><b>I am unavailable</b></button>
+                <button click.delegate="$parent.$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
+                <button click.delegate="$parent.$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
 
                 <div admin-only>
                   <br/>

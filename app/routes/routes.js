@@ -2,6 +2,7 @@ var Music = require('../models/music');
 var User = require('../models/user');
 var Gig = require('../models/gig');
 var auth = require('../passport/authenticator');
+var _und = require('../../public/jspm_packages/npm/underscore@1.8.3/underscore-min.js');
 
 module.exports = function(router){
   'use strict';
@@ -222,6 +223,41 @@ module.exports = function(router){
             }
             else{
               res.json({message: "Gig has been deleted"});
+            }
+          });
+        });
+
+  router.route('/api/gig/:gig_id/attendee/:user_id')
+        .post(auth.ensureAuthenticated, function(req,res){
+          console.log('GigID: ' + req.params.gig_id);
+          Gig.findById(req.params.gig_id, function(err, gig){
+            if(err){
+              res.send(err);
+            }
+            else{
+              var found = false;
+              _und.each(gig.attendees, function(attendee){
+                if(attendee.userID === req.params.user_id){
+                  attendee.going = req.body.going;
+                  found = true;
+                }
+              });
+
+              if(!found){
+                gig.attendees.push({
+                  userID: req.params.user_id,
+                  going: req.body.going
+                })
+              }
+
+              gig.save(function(err2){
+                if(err){
+                  res.json({message: "An error occurred"});
+                }
+                else{
+                  res.json({message: "Attendance has been updated"});
+                }
+              });
             }
           });
         });

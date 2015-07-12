@@ -16,6 +16,10 @@ export class Gigs{
   }
 
   activate(){
+    return this.loadGigs();
+  }
+
+  loadGigs(){
     return this.http.get('/api/gig')
                     .then(response => {
                         this.setRSVPStatuses(response.content);
@@ -63,11 +67,13 @@ export class Gigs{
     this.router.navigateToRoute('gigDetail', { gigID: 0 });
   }
 
-  rsvpYes(){
+  rsvp(gigID, status){
+    var url = 'api/gig/' + gigID + '/attendee/' + this.authState.getUserID();
+    var payload = {going:status};
 
-  }
-
-  rsvpNo(){
-
+    return this.http.post(url, payload)
+                    .then(response =>{
+                        this.loadGigs();
+                    });
   }
 }
