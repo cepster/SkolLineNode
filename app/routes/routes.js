@@ -168,7 +168,7 @@ module.exports = function(router){
             gig.date = req.body.date;
             gig.startTime = req.body.startTime;
             gig.endTime = req.body.endTime;
-            gig.note = req.body.note;
+            gig.notes = req.body.notes;
 
             gig.save(function(err){
               if(err){
@@ -201,7 +201,7 @@ module.exports = function(router){
                 gig.date = req.body.date;
                 gig.startTime = req.body.startTime;
                 gig.endTime = req.body.endTime;
-                gig.note = req.body.note;
+                gig.notes = req.body.notes;
 
                 gig.save(function(err2){
                     if(err2){

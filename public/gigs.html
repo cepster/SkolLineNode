@@ -3,13 +3,13 @@
 
   <div class="container">
 
-    <div repeat.for="gigType of gigs">
+    <div repeat.for="gigType of gigs" style="margin-left:-15px;">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">${gigType.title}</h3>
         </div>
       </div>
-      <div class="panel-body sk-body">
+      <div class="panel-body">
         <div id="${gigType.title}Accordion" class="panel-group">
           <div class="panel panel-default" repeat.for="thisGig of gigType.list">
             <div class="panel-heading">
@@ -21,6 +21,11 @@
               <div class="panel-body">
                 <b>Date:</b> ${thisGig.date}<br/>
                 <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
+
+                <i>
+                  ${thisGig.notes}
+                </i>
+                <br/><br/>
 
                 <div if.bind="$parent.gigType.needRsvp">
                   Please Respond:<br/>
