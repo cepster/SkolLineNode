@@ -192,7 +192,7 @@ module.exports = function(router){
           });
         })
         .put(auth.ensureAuthenticated, function(req, res){
-          Gig.findById(req.params.gig, function(err, gig){
+          Gig.findById(req.params.gig_id, function(err, gig){
               if(err){
                 res.send(err);
               }
@@ -229,7 +229,6 @@ module.exports = function(router){
 
   router.route('/api/gig/:gig_id/attendee/:user_id')
         .post(auth.ensureAuthenticated, function(req,res){
-          console.log('GigID: ' + req.params.gig_id);
           Gig.findById(req.params.gig_id, function(err, gig){
             if(err){
               res.send(err);
@@ -251,7 +250,7 @@ module.exports = function(router){
               }
 
               gig.save(function(err2){
-                if(err){
+                if(err2){
                   res.json({message: "An error occurred"});
                 }
                 else{
@@ -259,6 +258,28 @@ module.exports = function(router){
                 }
               });
             }
+          });
+        })
+        .delete(auth.ensureAuthenticated, function(req, res){
+          Gig.findById(req.params.gig_id, function(err, gig){
+              if(err){
+                res.send(err);
+              }
+              else{
+                gig.attendees = _und.filter(gig.attendees, function(attendee){
+                    return attendee.userID !== req.params.user_id;
+                });
+
+                gig.save(function(err2){
+                  if(err2){
+                    res.json({message: "An error occurred"});
+                  }
+                  else{
+                    console.log('Gig saved properly');
+                    res.json({message: "Attendance has been updated"});
+                  }
+                });
+              }
           });
         });
 };

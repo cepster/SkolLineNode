@@ -4,6 +4,10 @@ import {Router} from "aurelia-router";
 import {AuthState} from "service/authState";
 import _ from "underscore";
 
+var getRsvpUrl = function(gigID, userID){
+  return 'api/gig/' + gigID + '/attendee/' + userID;
+};
+
 @inject(Router, HttpClient, AuthState)
 export class Gigs{
 
@@ -50,15 +54,18 @@ export class Gigs{
     this.gigs = [
       {
         title: 'No Response',
-        list: noResponseList
+        list: noResponseList,
+        needRsvp: true
       },
       {
         title: 'Going',
-        list: goingList
+        list: goingList,
+        needRsvp: false,
       },
       {
         title: 'Not Going',
-        list: notGoingList
+        list: notGoingList,
+        needRsvp: false
       }
     ];
   }
@@ -68,12 +75,19 @@ export class Gigs{
   }
 
   rsvp(gigID, status){
-    var url = 'api/gig/' + gigID + '/attendee/' + this.authState.getUserID();
     var payload = {going:status};
 
-    return this.http.post(url, payload)
-                    .then(response =>{
-                        this.loadGigs();
+    return this.http.post(getRsvpUrl(gigID, this.authState.getUserID()), payload)
+                    .then(response => {
+                      this.loadGigs();
+                    });
+  }
+
+  removeRsvp(gigID){
+    return this.http.delete(getRsvpUrl(gigID, this.authState.getUserID()))
+                    .then(response => {
+                      console.log(response);
+                      this.loadGigs();
                     });
   }
 }

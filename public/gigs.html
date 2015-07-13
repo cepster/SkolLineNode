@@ -22,14 +22,18 @@
                 <b>Date:</b> ${thisGig.date}<br/>
                 <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
 
-                Please Respond:<br/>
-                <button click.delegate="$parent.$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
-                <button click.delegate="$parent.$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
+                <div if.bind="$parent.gigType.needRsvp">
+                  Please Respond:<br/>
+                  <button click.delegate="$parent.$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
+                  <button click.delegate="$parent.$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
+                </div>
+
+                <div if.bind="!$parent.gigType.needRsvp">
+                  You have already submitted an RSVP for this event.
+                  <a click.delegate="$parent.$parent.removeRsvp(thisGig._id)">Undo?</a>
+                </div>
 
                 <div admin-only>
-                  <br/>
-                  <br/>
-                  <br/>
                   <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
                 </div>
               </div>
