@@ -1,6 +1,7 @@
 $splashShadow: rgba(0, 0, 0, 0.5) 0 0 15px;
 $splashFontSize: 5em;
 $vikingPurple: #4F2683;
+$purpleGradientLight: #72519C;
 $vikingGold: #FFC62F;
 
 .splash {
@@ -45,4 +46,21 @@ a {
 .bg-primary {
   color: #fff;
   background-color: $vikingPurple;
+}
+
+/*
+ * The following changes are overrides to the default bootstrap stylings
+ * TODO: Make the linear-gradient an actual gradient
+ */
+ .title{
+   font-family: -webkit-pictograph;
+ }
+
+.panel-primary {
+  border-color: $vikingPurple;
+  .panel-heading {
+    background-image: linear-gradient(to bottom,$vikingPurple 0,$purpleGradientLight 100%);
+    background-color: $vikingPurple;
+    border-color: $vikingPurple;
+  }
 }

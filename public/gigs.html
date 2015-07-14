@@ -11,10 +11,15 @@
       </div>
       <div class="panel-body">
         <div id="${gigType.title}Accordion" class="panel-group">
+          <div if.bind="gigType.list.length === 0">
+            There are no events in this category
+          </div>
           <div class="panel panel-default" repeat.for="thisGig of gigType.list">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#${gigType.title}Accordion" href="#collapse1_${thisGig._id}">${thisGig.date} - ${thisGig.name}</a>
+                <a data-toggle="collapse" data-parent="#${gigType.title}Accordion" href="#collapse1_${thisGig._id}">
+                  <b>${thisGig.name}</b> - ${thisGig.date}
+                </a>
               </h4>
             </div>
             <div id="collapse1_${thisGig._id}" class="panel-collapse collapse">
@@ -24,6 +29,10 @@
 
                 <i>
                   ${thisGig.notes}
+                </i>
+
+                <i if.bind="!thisGig.notes">
+                  Description not provided
                 </i>
                 <br/><br/>
 
@@ -39,6 +48,7 @@
                 </div>
 
                 <div admin-only>
+                  <br/>
                   <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
                 </div>
               </div>
