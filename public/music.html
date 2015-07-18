@@ -22,57 +22,17 @@
             <br/>
           </div>
 
-          <b>MP3s</b>
+          <br/><br/>
+
+          <b>MP3</b>
           <div repeat.for="sound of selectedMusic.sounds">
-            <a href="${sound.url}" target="_">
-              ${sound.description}
-            </a>
+            <audio controls>
+              <source src="${sound.url}&raw=1" type="audio/mpeg">
+            </audio>
             <br/>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-  <!-- <div class="container">
-    <div class="col-md-3">
-      <div class="well sk-list-container">
-      <ul class="nav">
-        <li repeat.for="tune of music"><a click.delegate="$parent.loadDetail(tune._id)">${tune.name}</a></li>
-      </ul>
-      </div>
-    </div>
-    <div class="col-md-9">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 if.bind="!selectedMusic" class="panel-title">Music Detail</h3>
-          <h3 if.bind="selectedMusic" class="panel-title">${selectedMusic.name}</h3>
-        </div>
-        <div class="panel-body">
-          <div if.bind="!selectedMusic">
-            Please select a tune on the left to view detail
-          </div>
-          <div if.bind="selectedMusic">
-            <b>Music</b>
-            <div repeat.for="music of selectedMusic.music">
-              <a href="${music.url}" target="_">
-                ${music.description}
-              </a>
-              <br/>
-            </div>
-
-            <b>MP3s</b>
-            <div repeat.for="sound of selectedMusic.sounds">
-              <a href="${sound.url}" target="_">
-                ${sound.description}
-              </a>
-              <br/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>

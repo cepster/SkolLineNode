@@ -1,57 +1,50 @@
 <template>
-  <div class="container">
-  <div class="col-md-3">
-    <div class="well sk-list-container">
-    <ul class="nav">
-      <li repeat.for="member of members"><a click.delegate="$parent.loadDetail(member._id)">${member.name}</a></li>
-    </ul>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Member Detail</h3>
+  <div class="ui grid">
+    <div class="three wide column">
+      <div class="ui vertical fluid tabular menu">
+        <a repeat.for="member of members" click.delegate="$parent.loadDetail(member._id)"
+           class="item ${$parent.selectedMember._id==member._id? 'active': ''}">
+           ${member.name}
+         </a>
       </div>
-      <div class="panel-body">
-
+    </div>
+    <div class="thirteen wide stretched column">
+      <div class="ui segment">
         <div if.bind="!selectedMember">
           Please select a member on the left to view detail
         </div>
+        <div if.bind="selectedMember">
+          <form class="ui form">
+            <div class="field">
+              <label>Name</label>
+              <div class="ui input">
+                <input type="text" value.bind="selectedMember.name"/>
+              </div>
+            </div>
 
-        <form role="form" class="form-horizontal" if.bind="selectedMember">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="name" class="form-control" value.bind="selectedMember.name">
+            <div class="field">
+              <label>Instrument</label>
+              <div class="ui input">
+                <input type="text" value.bind="selectedMember.instrument"/>
+              </div>
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <div class="ui input">
+                  <input type="text" value.bind="selectedMember.email"/>
+                </div>
+            </div>
+
+            <div class="field">
+              <label>Phone Number</label>
+              <div class="ui input">
+                <input type="text" value.bind="selectedMember.phoneNumber"
+              </div>
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Instrument</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="instrument" class="form-control" value.bind="selectedMember.instrument">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="email" class="form-control" value.bind="selectedMember.email">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Phone Number</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="phone number" class="form-control" value.bind="selectedMember.phoneNumber">
-            </div>
-          </div>
-
-        </form>
+        </div>
       </div>
     </div>
-
-
   </div>
-</div>
 </template>
