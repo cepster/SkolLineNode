@@ -1,9 +1,25 @@
 <template>
-  <div class="container">
+  <div class="ui pointing menu">
+    <a class="item" repeat.for="row of router.navigation">
+      <a href.bind="row.href">${row.title}</a>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui transparent icon input">
+          <input type="text" placeholder="Search...">
+          <i class="search link icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui segment">
+    <p></p>
+  </div>
+  TESTING
+  <!-- <div class="container">
     <h1 class="title">The Minnesota Vikings Skol Line</h1>
 
     <nav role="navigation" class="navbar navbar-inverse">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
           <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
               <span class="sr-only">Toggle navigation</span>
@@ -33,5 +49,5 @@
     <div class="footer">
       <p>&copy; 2015 Matt Richards</p>
     </div>
-  </div>
+  </div> -->
 </template>
