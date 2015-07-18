@@ -13,7 +13,7 @@ export class App {
 
     config.title = 'The Minnesota Vikings Skol Line';
     config.map([
-      {route: ['', 'home'],       name: 'home',        moduleId:'main'},
+      {route: ['', 'home'],       name: 'home',        moduleId:'main',     title:'Home',    nav:true},
       {route: 'music',            name: 'music',       moduleId:'music',    title:'Music',   nav:true},
       {route: 'members',          name: 'members',     moduleId:'members',  title:'Members', nav:true},
       {route: 'gigs',             name: 'gigs',        moduleId:'gigs',     title:'Gigs',    nav:true},
