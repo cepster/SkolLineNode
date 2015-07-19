@@ -1,4 +1,5 @@
 <template>
+  <require from="./custom/buttonNavigate"></require>
   <div style="padding-left:30px;padding-top:30px;padding-bottom:30px;padding-right:30px;">
     <h1 class="title">The Minnesota Vikings Skol Line</h1>
     <div class="ui pointing menu">
@@ -8,8 +9,8 @@
       <div class="right menu">
         <div class="item">
           <div class="ui transparent icon input">
-            <a route-href="route: members;">Hello, ${loggedInName()}!</a> |
-            <a href="/logout">Logout</a>
+            <div class="ui primary button" button-navigate="routehref:members">Hello, ${loggedInName()}!</div>
+            <div class="ui button" button-navigate="href:'/logout'">Logout</div>
           </div>
         </div>
       </div>

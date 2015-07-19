@@ -1,6 +1,6 @@
 import {customAttribute, inject} from "aurelia-framework";
 import {AuthState} from "../service/authState";
-import $ from 'bootstrap';
+import $ from 'jquery';
 
 @customAttribute('admin-only')
 @inject(Element, AuthState)

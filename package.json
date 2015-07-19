@@ -56,7 +56,7 @@
       "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0",
       "aurelia-framework": "github:aurelia/framework@^0.13.0",
       "aurelia-http-client": "github:aurelia/http-client@^0.10.0",
-      "bootstrap": "github:twbs/bootstrap@^3.3.5",
+      "jquery": "github:components/jquery@^2.1.4",
       "jquery-ui": "github:components/jqueryui@^1.11.4",
       "underscore": "npm:underscore@^1.8.3"
     },
