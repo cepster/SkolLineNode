@@ -18,7 +18,9 @@ export class App {
       {route: 'members',          name: 'members',     moduleId:'members',  title:'Members', nav:true},
       {route: 'gigs',             name: 'gigs',        moduleId:'gigs',     title:'Gigs',    nav:true},
       {route: 'gigDetail/:gigID', name: 'gigDetail',   moduleId:'gigDetail'},
-      {route: 'calendar',         name: 'calendar',    moduleId:'calendar', title:'Calendar', nav:true}
+      {route: 'calendar',         name: 'calendar',    moduleId:'calendar', title:'Calendar', nav:true},
+      {route: 'social',           name: 'social',      moduleId:'social',   title:'Social',   nav:true},
+      {route: 'forum',            name: 'forum',       moduleId:'forum',    title:'Forum',    nav:true}
     ]);
   }
 

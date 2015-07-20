@@ -39,7 +39,6 @@ export class GigDetail{
 
   deleteGig(){
     if(this.gig._id){
-      console.log('Deleting...');
       this.http.delete('/api/gig/' + this.gig._id)
                .then(response => {
                   this.router.navigateToRoute('gigs');
