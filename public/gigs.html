@@ -1,65 +1,40 @@
 <template>
   <require from="./custom/adminOnly"></require>
 
-  <div class="container">
-
-    <div repeat.for="gigType of gigs" style="margin-left:-15px;">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">${gigType.title}</h3>
-        </div>
+  <!-- <h2 class="ui header">Please Respond</h2> -->
+  <div class="ui grid">
+    <div class="ui raised very padded text container segment five wide column" repeat.for="thisGig of noResponse" foo="${thisGig._id}" style="min-width:300px;">
+      <h2 class="ui header">${thisGig.name}</h2>
+      <b>Date:</b> ${thisGig.date}<br/>
+      <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
+      <i>${thisGig.notes}</i>
+      <i if.bind="!thisGig.notes">
+        Description not provided
+      </i>
+      <br/><br/>
+      <div>
+        Please Respond:<br/>
+        <button click.delegate="$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
+        <button click.delegate="$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
       </div>
-      <div class="panel-body">
-        <div id="${gigType.title}Accordion" class="panel-group">
-          <div if.bind="gigType.list.length === 0">
-            There are no events in this category
-          </div>
-          <div class="panel panel-default" repeat.for="thisGig of gigType.list">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#${gigType.title}Accordion" href="#collapse1_${thisGig._id}">
-                  <b>${thisGig.name}</b> - ${thisGig.date}
-                </a>
-              </h4>
-            </div>
-            <div id="collapse1_${thisGig._id}" class="panel-collapse collapse">
-              <div class="panel-body">
-                <b>Date:</b> ${thisGig.date}<br/>
-                <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
-
-                <i>
-                  ${thisGig.notes}
-                </i>
-
-                <i if.bind="!thisGig.notes">
-                  Description not provided
-                </i>
-                <br/><br/>
-
-                <div if.bind="$parent.gigType.needRsvp">
-                  Please Respond:<br/>
-                  <button click.delegate="$parent.$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
-                  <button click.delegate="$parent.$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
-                </div>
-
-                <div if.bind="!$parent.gigType.needRsvp">
-                  You have already submitted an RSVP for this event.
-                  <a click.delegate="$parent.$parent.removeRsvp(thisGig._id)">Undo?</a>
-                </div>
-
-                <div admin-only>
-                  <br/>
-                  <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div admin-only>
+        <br/>
+        <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
       </div>
     </div>
+  </div>
 
-    <div admin-only class="control-group">
-      <button click.delegate="newGig()">New Gig</button>
-    </div>
+  <h2 class="ui header">Already Responded</h2>
+  <div repeat.for="thisGig of going">
+    ${thisGig.name}
+    <a click.delegate="$parent.removeRsvp(thisGig._id)">Undo RSVP</a>
+  </div>
+  <div repeat.for="thisGig of notGoing">
+    ${thisGig.name}
+    <a click.delegate="$parent.removeRsvp(thisGig._id)">Undo RSVP</a>
+  </div>
+
+  <div admin-only class="control-group">
+    <button click.delegate="newGig()">New Gig</button>
   </div>
 </template>

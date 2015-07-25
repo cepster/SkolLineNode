@@ -27,12 +27,10 @@ mongoose.connect(dbUrl);
 var router = new express.Router();
 
 router.get('/', function(req, res){
-  'use strict';
   res.render('index', { message: ''});
 });
 
 router.get('/home', auth.ensureAuthenticated, function(req, res){
-  'use strict';
   res.sendFile(path.join(__dirname, '/public/home.html'));
 });
 
@@ -42,8 +40,6 @@ router.post('/login', passport.authenticate('login', {
 }));
 
 router.get('/logout', auth.ensureAuthenticated, function(req, res){
-  'use strict';
-
   req.logout();
   res.redirect('/');
 });
