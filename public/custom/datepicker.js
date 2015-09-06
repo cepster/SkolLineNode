@@ -1,5 +1,5 @@
 import {customAttribute, bindable, inject} from 'aurelia-framework';
-import $ from 'bootstrap';
+import $ from 'jquery';
 import datepicker from 'jquery-ui';
 
 @inject(Element)

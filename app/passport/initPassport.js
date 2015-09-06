@@ -24,6 +24,9 @@ module.exports = function(passport){
   var testUser = new User();
   testUser.username = 'admin';
   testUser.password = 'password';
+  testUser.name = "Matt Richards";
+  testUser.member = true;
+  testUser.admin = true;
 
   var testUser2 = new User();
   testUser2.username = 'member';
@@ -50,13 +53,25 @@ module.exports = function(passport){
         }
 
         if(user){
-          console.log('Test user already found in DB');
+          user.name = thisUser.name;
+          user.email = thisUser.email;
+          user.member = thisUser.member;
+          user.admin = thisUser.admin;
+          user.instrument = thisUser.instrument;
+          user.save(function(saveErr) {
+            if(saveErr){
+              console.log('Unable to save test user: ' + saveErr);
+            }
+            else{
+              console.log('Saved modified test user: ' + user.username);
+            }
+          });
         }
         else{
           thisUser.password = createHash(thisUser.password);
           thisUser.save(function(saveErr){
               if(saveErr){
-                console.log('Unable to save test user');
+                console.log('Unable to save test user: ' + saveErr);
               }
               else{
                 console.log('Saved new test user: ' + thisUser.username);

@@ -5,8 +5,6 @@ var auth = require('../passport/authenticator');
 var _und = require('../../public/jspm_packages/npm/underscore@1.8.3/underscore-min.js');
 
 module.exports = function(router){
-  'use strict';
-
   router.route('/api/music')
     .get(auth.ensureAuthenticated, function(req, res){
         Music.find(function(err, music){
@@ -125,9 +123,11 @@ module.exports = function(router){
                 member.email = req.body.email;
                 member.save(function(err2){
                     if(err2){
+                      console.log('An error occurred...');
                       res.send(err2);
                     }
                     else{
+                      console.log('Success saving member');
                       res.json({message: "Member Updated!"});
                     }
                 });
@@ -228,7 +228,7 @@ module.exports = function(router){
         });
 
   router.route('/api/gig/:gig_id/attendee/:user_id')
-        .post(auth.ensureAuthenticated, function(req,res){
+        .post(auth.ensureAuthenticated, function(req, res){
           Gig.findById(req.params.gig_id, function(err, gig){
             if(err){
               res.send(err);
@@ -246,7 +246,7 @@ module.exports = function(router){
                 gig.attendees.push({
                   userID: req.params.user_id,
                   going: req.body.going
-                })
+                });
               }
 
               gig.save(function(err2){

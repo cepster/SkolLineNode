@@ -1,37 +1,22 @@
 <template>
-  <div class="container">
+  <require from="./custom/buttonNavigate"></require>
+  <div style="padding-left:30px;padding-top:30px;padding-bottom:30px;padding-right:30px;">
     <h1 class="title">The Minnesota Vikings Skol Line</h1>
-
-    <nav role="navigation" class="navbar navbar-inverse">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-          <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="navbar-brand"><img src="img/norseman-logo.png" style="height:40px;margin-top:-10px;"/></a>
+    <div class="ui pointing menu">
+      <a repeat.for="row of router.navigation" class="item ${row.isActive ? 'active' : ''}" href.bind="row.href">
+        ${row.title}
+      </a>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui transparent icon input">
+            <div class="ui primary button" button-navigate="routehref:members">Hello, ${loggedInName()}!</div>
+            <div class="ui button" button-navigate="href:'/logout'">Logout</div>
+          </div>
+        </div>
       </div>
-      <div id="navbarCollapse" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : '}">
-                <a href.bind="row.href">${row.title}</a>
-              </li>
-              <li><a href="/admin">Admin</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-              <li><a route-href="route: members;">Hello, ${loggedInName()}!</a></li>
-              <li><a href="/logout">Logout</a></li>
-          </ul>
-      </div>
-    </nav>
-
-    <router-view></router-view>
-
-    <hr>
-    <div class="footer">
-      <p>&copy; 2015 Matt Richards</p>
+    </div>
+    <div class="ui segment">
+      <router-view></router-view>
     </div>
   </div>
 </template>

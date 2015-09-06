@@ -3,62 +3,47 @@
   <require from="./custom/adminOnly"></require>
   <require from="./custom/adminOnlyInput"></require>
 
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Gig Detail</h3>
+  <h3>Gig Detail</h3>
+
+  <a route-href="route:gigs;">Back to Gigs...</a>
+
+  <form class="ui form">
+    <div class="field">
+      <label>Name</label>
+      <div class="ui input">
+        <input type="text" placeholder="name" admin-only-input value.bind="gig.name"/>
+      </div>
     </div>
-    <div class="panel-body sk-body">
 
-      <a route-href="route:gigs;">Back to Gigs...</a>
-
-      <form role="form" class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-              <input type="text" admin-only-input placeholder="name" class="form-control" value.bind="gig.name"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Date</label>
-            <div class="col-sm-10">
-              <input date-picker admin-only-input class="form-control" value.bind="gig.date"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Start Time</label>
-            <div class="col-sm-10">
-              <input type="text" admin-only-input placeholder="start time" class="form-control" value.bind="gig.startTime"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">End Time</label>
-            <div class="col-sm-10">
-              <input type="text" admin-only-input placeholder="end time" class="form-control" value.bind="gig.endTime"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Notes</label>
-            <div class="col-sm-10">
-              <input type="text" admin-only-input placeholder="notes" class="form-control" value.bind="gig.notes"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-1">
-              <button admin-only click.delegate="saveGig()">Save</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-2">
-              <button admin-only click.delegate="deleteGig()">Delete Gig</button>
-            </div>
-          </div>
-      </form>
+    <div class="field">
+      <label>Date</label>
+      <div class="ui input">
+        <input date-picker admin-only-input value.bind="gig.date"/>
+      </div>
     </div>
-  </div>
+
+    <div class="field">
+      <label>Start Time</label>
+      <div class="ui input">
+        <input type="text" admin-only-input placeholder="Start Time" value.bind="gig.startTime"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>End Time</label>
+      <div class="ui input">
+        <input type="text" admin-only-input placeholder="End Time" value.bind="gig.endTime"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Notes</label>
+      <div class="ui input">
+        <input type="text" admin-only-input placeholder="Notes" value.bind="gig.notes"/>
+      </div>
+    </div>
+
+    <button admin-only class="ui primary button" click.delegate="saveGig()">Save</button>
+    <button admin-only class="ui button" click.delegate="deleteGig">Delete Gig</button>
+  </form>
 </template>

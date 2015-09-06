@@ -21,18 +21,17 @@ initPassport(passport);
 
 //database
 var dbUrl = process.env.DB || 'mongodb://skol:vikings@ds053312.mongolab.com:53312/skolline';
+// dbUrl = 'mongodb://127.0.0.1:27017/skolLine'; //local connection string
 mongoose.connect(dbUrl);
 
 //routes
 var router = new express.Router();
 
 router.get('/', function(req, res){
-  'use strict';
   res.render('index', { message: ''});
 });
 
 router.get('/home', auth.ensureAuthenticated, function(req, res){
-  'use strict';
   res.sendFile(path.join(__dirname, '/public/home.html'));
 });
 
@@ -42,8 +41,6 @@ router.post('/login', passport.authenticate('login', {
 }));
 
 router.get('/logout', auth.ensureAuthenticated, function(req, res){
-  'use strict';
-
   req.logout();
   res.redirect('/');
 });
