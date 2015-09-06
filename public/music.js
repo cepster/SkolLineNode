@@ -1,11 +1,13 @@
 import {inject} from "aurelia-framework";
 import {HttpClient} from "aurelia-http-client";
+import {Router} from "aurelia-router";
 
-@inject(HttpClient)
+@inject(HttpClient, Router)
 export class Music {
 
-  constructor(http){
+  constructor(http, router){
     this.http = http;
+    this.router = router;
     this.music = [];
     this.selectedMusic = undefined;
   }
@@ -22,5 +24,9 @@ export class Music {
       .then(response =>{
           this.selectedMusic = response.content;
       });
+  }
+
+  newMusic(){
+    this.router.navigateToRoute('musicDetail', { musicID: 0 });
   }
 }

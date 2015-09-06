@@ -45,6 +45,10 @@
           </div>
         </div>
       </div>
+      <div class="ui segment" if.bind="selectedMember">
+        <div class="ui primary button" click.delegate="saveMember()">Save</div>
+        <div class="ui button" click.delegate="deleteMember()">Delete</div>
+      </div>
     </div>
   </div>
 </template>

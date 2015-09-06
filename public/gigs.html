@@ -1,37 +1,81 @@
 <template>
   <require from="./custom/adminOnly"></require>
+  
+  <div class="ui three item menu">
+    <a class="item ${chosenOption === 'inbox' ? 'active' : ''}" click.delegate="toggleSchedule('inbox')">Inbox</a>
+    <a class="item ${chosenOption === 'myEvents' ? 'active' : ''}" click.delegate="toggleSchedule('myEvents')">My Upcoming Events</a>
+    <a class="item ${chosenOption === 'notGoing' ? 'active' : ''}" click.delegate="toggleSchedule('notGoing')">Not Going</a>
+  </div>
 
-  <!-- <h2 class="ui header">Please Respond</h2> -->
-  <div class="ui grid">
-    <div class="ui raised very padded text container segment five wide column" repeat.for="thisGig of noResponse" foo="${thisGig._id}" style="min-width:300px;">
-      <h2 class="ui header">${thisGig.name}</h2>
-      <b>Date:</b> ${thisGig.date}<br/>
-      <b>Time:</b> ${thisGig.startTime}-${thisGig.endTime}<br/><br/>
-      <i>${thisGig.notes}</i>
-      <i if.bind="!thisGig.notes">
-        Description not provided
-      </i>
-      <br/><br/>
-      <div>
-        Please Respond:<br/>
-        <button click.delegate="$parent.rsvp(thisGig._id, true)"><b>I can go!</b></button>
-        <button click.delegate="$parent.rsvp(thisGig._id, false)"><b>I am unavailable</b></button>
-      </div>
-      <div admin-only>
-        <br/>
-        <a route-href="route: gigDetail; params.bind: {gigID: thisGig._id}">Edit</a>
+  <div if.bind="chosenOption === 'inbox'">
+    <h2 class="ui header">Inbox</h2>
+    <div class="ui segment" repeat.for="thisGig of noResponse" foo="${thisGig._id}">
+      <div class="ui grid">
+        <div class="four wide column">
+          <h3 class="ui header">${thisGig.name}</h3>
+      
+          ${thisGig.date}<br/> 
+          ${thisGig.startTime}-${thisGig.endTime}<br/>
+        </div>
+        <div class="ten wide column">
+          ${thisGig.notes}
+          <i if.bind="!thisGig.notes">
+            Description not provided
+          </i>
+        </div>
+        <div class="two wide column">
+          <i class="big green checkmark link icon" click.delegate="$parent.rsvp(thisGig._id, true)"></i>
+          <i class="big red remove link icon" click.delegate="$parent.rsvp(thisGig._id, false)"></i>
+          <i admin-only class="big edit link icon" route-href="route: gigDetail; params.bind: {gigID: thisGig._id}"></i>
+        </div>
       </div>
     </div>
   </div>
 
-  <h2 class="ui header">Already Responded</h2>
-  <div repeat.for="thisGig of going">
-    ${thisGig.name}
-    <a click.delegate="$parent.removeRsvp(thisGig._id)">Undo RSVP</a>
+  <div if.bind="chosenOption === 'myEvents'">
+    <h2 class="ui header">My Events</h2>
+    <div if.bind="going.length === 0">Nothing to see here</div>
+    <div class="ui segment" repeat.for="thisGig of going">
+      <div class="ui grid">
+        <div class="four wide column">
+          <h3 class="ui header">${thisGig.name}</h3>
+          ${thisGig.date}<br/>
+          ${thisGig.startTime}-${thisGig.endTime}<br/>
+        </div>
+        <div class="ten wide column">
+          ${thisGig.notes}
+          <i if.bind="!thisGig.notes">
+            Description not provided
+          </i>
+        </div>
+        <div class="two wide column">
+          <i class="big gray undo link icon" click.delegate="$parent.removeRsvp(thisGig._id)"></i>
+        </div>
+      </div>
+    </div>
   </div>
-  <div repeat.for="thisGig of notGoing">
-    ${thisGig.name}
-    <a click.delegate="$parent.removeRsvp(thisGig._id)">Undo RSVP</a>
+  
+  <div if.bind="chosenOption === 'notGoing'">
+    <h2 class="ui header">Not Going</h2>
+    <div class="side-note" if.bind="notGoing.length === 0">Nothing to see here</div>
+    <div class="ui segment" repeat.for="thisGig of notGoing">
+      <div class="ui grid">
+        <div class="four wide column">
+          <h3 class="ui header">${thisGig.name}</h3>
+          ${thisGig.date}<br/>
+          ${thisGig.startTime}-${thisGig.endTime}<br/>
+        </div>
+        <div class="ten wide column">
+          ${thisGig.notes}
+          <i if.bind="!thisGig.notes">
+            Description not provided
+          </i>
+        </div>
+        <div class="two wide column">
+          <i class="big gray undo link icon" click.delegate="$parent.removeRsvp(thisGig._id)"></i>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div admin-only class="control-group">

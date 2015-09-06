@@ -3,7 +3,7 @@ import {HttpClient} from "aurelia-http-client";
 import {Router} from "aurelia-router";
 import {AuthState} from "service/authState";
 import _ from "underscore";
-import semantic from "semantic/dist/semantic.min.js";
+import semantic from "semantic/dist/semantic.min";
 
 var getRsvpUrl = function(gigID, userID){
   return 'api/gig/' + gigID + '/attendee/' + userID;
@@ -21,6 +21,7 @@ export class Gigs{
     this.noResponse = [];
     this.going = [];
     this.notGoing = [];
+    this.chosenOption = 'inbox';
   }
 
   activate(){
@@ -94,5 +95,9 @@ export class Gigs{
                       console.log(response);
                       this.loadGigs();
                     });
+  }
+  
+  toggleSchedule(filter){
+    this.chosenOption = filter;
   }
 }

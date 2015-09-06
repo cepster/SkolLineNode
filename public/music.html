@@ -1,4 +1,6 @@
 <template>
+  <require from="./custom/adminOnly"></require>
+
   <div class="ui grid">
     <div class="three wide column">
       <div class="ui vertical fluid tabular menu">
@@ -6,6 +8,8 @@
            class="item ${$parent.selectedMusic._id==tune._id? 'active': ''}">
            ${tune.name}
          </a>
+
+         <div admin-only class="ui button" click.delegate="newMusic()">New Music</div>
       </div>
     </div>
     <div class="thirteen wide stretched column">

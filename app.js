@@ -21,6 +21,7 @@ initPassport(passport);
 
 //database
 var dbUrl = process.env.DB || 'mongodb://skol:vikings@ds053312.mongolab.com:53312/skolline';
+// dbUrl = 'mongodb://127.0.0.1:27017/skolLine'; //local connection string
 mongoose.connect(dbUrl);
 
 //routes
